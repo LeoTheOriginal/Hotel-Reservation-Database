@@ -218,13 +218,13 @@ Możesz dołączyć zrzuty ekranu prezentujące działanie poszczególnych widok
 
 **Przykład:**
 
-```markdown
+
 ![Widok Logowania](assets/images/screenshots/login_view.png)
 *Rys. 1. Ekran logowania.*
 
 ![Widok Rezerwacji](assets/images/screenshots/rezerwacje_view.png)
 *Rys. 2. Lista rezerwacji wraz z opcją dodawania nowej.*
-```
+
 
 Oczywiście nazwy i ścieżki do plików graficznych musisz dostosować do faktycznej struktury swojego projektu.
 
