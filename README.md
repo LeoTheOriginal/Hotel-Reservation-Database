@@ -75,14 +75,14 @@ project-root/
 ├── config.php
 ├── index.php
 ├── test_connection.php
-└── repo-sql/  (folder na repozytorium tylko dla plików SQL)
+└── repo-sql/
 ```
 
 1. **pages/** – zawiera podstrony i moduły aplikacji (funkcjonalnosci, pracownicy, goscie itd.).
 2. **includes/** – zawiera pliki nagłówkowe (header) i stopki (footer) oraz ewentualne ustawienia sesji.
 3. **assets/** – przechowuje pliki CSS, JS, obrazy, ikony, itp.
 4. **config.php** – ustawienia i parametry bazy danych oraz URL projektu (uwaga: nie ujawniaj prawdziwych credentiali w repozytorium publicznym).
-5. **index.php** – Strona główna projektu (może być stroną powitalną lub przekierowującą).
+5. **index.php** – Strona główna projektu (może być stroną powitalną, wyborem języka lub przekierowaniem do logowania/dashbordu).
 6. **test_connection.php** – Skrypt testujący połączenie z bazą.
 7. **repo-sql/** – osobny folder na repozytorium SQL (np. `projekt.sql`).
 
@@ -150,7 +150,7 @@ if (!$test) {
 ## Konfiguracja
 1. W pliku `config.php` ustaw:
    - **$host**, **$dbname**, **$user**, **$password** – adekwatnie do Twojej bazy PostgreSQL.
-   - **$base_url** – URL projektu (np. http://localhost/hotel lub /~2piotrowski/hotel).
+   - **$base_url** – URL projektu (np. http://localhost/hotel lub /~nazwa_urzytkownika/hotel).
    - **$schema** – Nazwa schematu w bazie (domyślnie `rezerwacje_hotelowe`).
 2. Sprawdź, czy folder `assets/images/uploads` ma odpowiednie uprawnienia (zapisywalny dla PHP) – jeśli korzystasz z uploadu zdjęć.
 3. Upewnij się, że `php.ini` ma włączone rozszerzenie pdo_pgsql.
@@ -159,8 +159,13 @@ if (!$test) {
 ---
 ## Instrukcje uruchomienia
 1. Skonfiguruj wirtualny host lub używaj `http://localhost/hotel` (zależnie od Twojego środowiska).
-2. Zarejestruj lub zaloguj się na konto (jeśli już istnieje konto Administratora).
-3. Po zalogowaniu dostępne będą poszczególne moduły:
+2. Otwórz w przeglądarce główną stronę – `index.php`. Może ona pełnić funkcję strony powitalnej lub przekierowywać do logowania.
+3. Zaloguj się na konto (jeśli już istnieje konto Administratora) lub dodaj nowe konto dla pracownika (z poziomu dostępu Managera lub Administratora).
+4. Po zalogowaniu użytkownik trafia na **Dashboard** (dashboard.php) – sekcję, w której może:
+   - Przeglądać swoje podstawowe dane i ewentualnie zmienić login bądź hasło,
+   - Załadować zdjęcie profilowe,
+   - Zobaczyć podstawowe statystyki lub odnośniki do dalszych modułów.
+5. Z panelu nawigacyjnego dostępne będą poszczególne moduły:
    - **Rezerwacje**
    - **Pokoje**
    - **Goście**
@@ -169,64 +174,148 @@ if (!$test) {
    - **Typy łóżek**
    - **Wyposażenie**
    - **Dodatki**
-   - **Funkcjonalności** (opisowe)
+   - **Funkcjonalności** (opisowe – tutaj znajdzie się bardziej szczegółowy opis działania strony)
    - **Logi systemowe**
-4. Dostępność poszczególnych funkcji zależy od roli zalogowanego użytkownika (Administrator, Recepcjonista, Manager).
+6. Dostępność poszczególnych funkcji zależy od roli zalogowanego użytkownika (Administrator, Recepcjonista, Manager).
 
 ---
 ## Główne funkcjonalności
-1. **Zarządzanie rezerwacjami**
+1. **Strona główna (index.php)**
+   - Może prezentować krótki opis hotelu lub przekierowywać do panelu logowania.
+   - Często zawiera odnośniki do modułu publicznych rezerwacji.
+
+2. **Dashboard (dashboard.php)**
+   - Zawiera informacje o zalogowanym pracowniku (imię, nazwisko, login, rola), możliwość zmiany loginu/hasła.
+   - Obsługuje upload zdjęcia profilowego.
+   - Prezentuje skróty do głównych sekcji systemu.
+
+3. **Zarządzanie rezerwacjami** (pages/rezerwacje)
    - Dodawanie rezerwacji (dla nowego lub istniejącego gościa)
    - Edycja rezerwacji (np. zmiana dat, dodawanie/ usuwanie dodatków)
    - Usuwanie i anulowanie rezerwacji
    - Wykwaterowanie (zmiana statusu pokoju na „Dostępny” oraz statusu płatności na „Zrealizowana”)
-2. **Goście**
+
+4. **Goście** (pages/goscie)
    - Dodawanie nowego gościa, weryfikacja unikalności email
    - Edycja danych gościa
    - Usuwanie gościa (tylko przez Administratora/Managera)
-3. **Pokoje**
+
+5. **Pokoje** (pages/pokoje)
    - Definiowanie klasy pokoju, piętra, statusu
    - Automatyczne obliczanie liczby osób w zależności od łóżek i klasy pokoju
-4. **Dodatki**
+
+6. **Dodatki** (pages/dodatki)
    - Definiowanie dodatków, np. Śniadanie, Parking, SPA
    - Możliwość przypisywania dodatków do rezerwacji
-5. **Raporty**
+
+7. **Raporty** (pages/raporty)
    - Raporty finansowe (Chart.js): przychody w określonych miesiącach
    - Raporty dotyczące pokoi (obłożenie)
    - Raporty dotyczące gości (liczba rezerwacji na gościa)
    - Eksport wyników do CSV, Excel, PDF
-6. **Logi systemowe**
+
+8. **Logi systemowe** (pages/logi_systemowe)
    - Zapis szczegółów w formacie JSONB w bazie
    - Przeglądanie, usuwanie lub wyczyszczenie logów
-7. **Pracownicy**
+
+9. **Pracownicy** (pages/pracownicy)
    - Dodawanie i edycja danych pracownika
    - Przypisywanie roli (Administrator, Recepcjonista, Manager)
    - Zmiana hasła i logina
-8. **Wyposażenie**
+
+10. **Wyposażenie** (pages/wyposazenie)
    - Dodawanie/ edycja/ usuwanie wyposażenia (np. Telewizor, Wi-Fi, Klimatyzacja)
-9. **Typy łóżek**
+
+11. **Typy łóżek** (pages/typy_lozek)
    - Definiowanie i usuwanie typów łóżek (np. Pojedyncze, Podwójne, Królewskie)
-10. **Publiczna strona rezerwacji**
+
+12. **Publiczna strona rezerwacji**
    - Możliwość dokonania rezerwacji przez gościa, wybór klasy pokoju, dodatków itp.
    - Automatycznie sprawdzana dostępność pokoi, obliczany koszt itd.
-11. **Funkcjonalności**
+
+13. **Funkcjonalności** (pages/funkcjonalnosci)
    - Dodatkowe opisy poszczególnych elementów systemu (moduł informacyjny)
 
 ---
 ## Przykładowe screenshoty
-Możesz dołączyć zrzuty ekranu prezentujące działanie poszczególnych widoków – wystarczy, że wstawisz je w odpowiednim miejscu w tym pliku README.
 
-**Przykład:**
+Aby lepiej zobrazować poszczególne widoki i funkcjonalności systemu, poniżej znajduje się zbiór przykładowych zrzutów ekranu wraz z krótkim opisem.
 
+---
 
-![Widok Logowania](assets/images/screenshots/login_view.png)
-*Rys. 1. Ekran logowania.*
+### 1. Strona Główna (index.php)
+![Strona Główna](assets/images/screenshots/home_view.png)  
+*Rys. 1. Ekran powitalny z odnośnikiem do logowania oraz/lub strony publicznej rezerwacji.*
 
-![Widok Rezerwacji](assets/images/screenshots/rezerwacje_view.png)
-*Rys. 2. Lista rezerwacji wraz z opcją dodawania nowej.*
+---
 
+### 2. Ekran Logowania
+![Widok Logowania](assets/images/screenshots/login_view.png)  
+*Rys. 2. Formularz logowania do systemu.*
 
-Oczywiście nazwy i ścieżki do plików graficznych musisz dostosować do faktycznej struktury swojego projektu.
+---
+
+### 3. Dashboard (dashboard.php)
+![Dashboard](assets/images/screenshots/dashboard_view.png)  
+*Rys. 3. Panel informacyjny dla zalogowanego pracownika: zmiana loginu, hasła, zdjęcia profilowego, a także skróty do głównych sekcji.*
+
+---
+
+### 4. Rezerwacje (pages/rezerwacje)
+![Widok Rezerwacji](assets/images/screenshots/rezerwacje_view.png)  
+*Rys. 4. Lista rezerwacji z opcją dodawania nowej, edycji i eksportu do PDF/CSV/Excel.*
+
+---
+
+### 5. Goście (pages/goscie)
+![Lista Gości](assets/images/screenshots/goscie_view.png)  
+*Rys. 5. Wykaz gości z przyciskiem „Dodaj Gościa” i możliwością edycji/usuwania danych.*
+
+---
+
+### 6. Pracownicy (pages/pracownicy)
+![Lista Pracowników](assets/images/screenshots/pracownicy_view.png)  
+*Rys. 6. Zarządzanie pracownikami: dodawanie, edycja, przypisywanie ról (Administrator, Recepcjonista, Manager).*
+
+---
+
+### 7. Raporty (pages/raporty)
+![Raporty Finansowe](assets/images/screenshots/raporty_view.png)  
+*Rys. 7. Raporty z wykorzystaniem wykresów (Chart.js) oraz możliwość eksportu w różnych formatach.*
+
+---
+
+### 8. Wyposażenie (pages/wyposazenie)
+![Wyposażenie](assets/images/screenshots/wyposazenie_view.png)  
+*Rys. 8. Lista dostępnego wyposażenia i narzędzia do dodawania/edycji.*
+
+---
+
+### 9. Typy Łóżek (pages/typy_lozek)
+![Typy Łóżek](assets/images/screenshots/typy_lozek_view.png)  
+*Rys. 9. Spis zdefiniowanych łóżek (pojedyncze, podwójne, kanapa itd.) i możliwość dodania nowych.*
+
+---
+
+### 10. Dodatki (pages/dodatki)
+![Dodatki](assets/images/screenshots/dodatki_view.png)  
+*Rys. 10. Lista dostępnych dodatków do rezerwacji (śniadanie, parking, spa), edycja i usuwanie.*
+
+---
+
+### 11. Funkcjonalności (pages/funkcjonalnosci)
+![Funkcjonalności](assets/images/screenshots/funkcjonalnosci_view.png)  
+*Rys. 11. Sekcja opisowa dokumentująca kolejne moduły i ich zastosowanie.*
+
+---
+
+### 12. Logi systemowe (pages/logi_systemowe)
+![Logi Systemowe](assets/images/screenshots/logi_systemowe_view.png)  
+*Rys. 12. Szczegóły operacji w formacie JSONB, możliwość wglądu i czyszczenia logów.*
+
+---
+
+\*Uwaga: Nazwy i ścieżki plików graficznych (np. `assets/images/screenshots/...`) należy dostosować do rzeczywistej lokalizacji screenshotów w Twoim projekcie.
 
 ---
 ## Architektura bazodanowa i logika
