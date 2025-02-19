@@ -42,6 +42,7 @@ Celem projektu jest automatyzacja czynności związanych z rezerwacjami, stanem 
 7. **Inne**: 
    - php.ini z włączoną obsługą PDO do komunikacji z bazą danych
    - Uprawnienia do tworzenia schematów w PostgreSQL
+   - **Względy bezpieczeństwa**: Hasła i klucze uwierzytelniające do bazy danych należy przechowywać poza repozytorium (lub w plikach, które nie są commitowane). Poniższy przykład w `config.php` jest jedynie poglądowy.
 
 ---
 ## Struktura projektu
@@ -80,7 +81,7 @@ project-root/
 1. **pages/** – zawiera podstrony i moduły aplikacji (funkcjonalnosci, pracownicy, goscie itd.).
 2. **includes/** – zawiera pliki nagłówkowe (header) i stopki (footer) oraz ewentualne ustawienia sesji.
 3. **assets/** – przechowuje pliki CSS, JS, obrazy, ikony, itp.
-4. **config.php** – ustawienia i parametry bazy danych oraz URL projektu.
+4. **config.php** – ustawienia i parametry bazy danych oraz URL projektu (uwaga: nie ujawniaj prawdziwych credentiali w repozytorium publicznym).
 5. **index.php** – Strona główna projektu (może być stroną powitalną lub przekierowującą).
 6. **test_connection.php** – Skrypt testujący połączenie z bazą.
 7. **repo-sql/** – osobny folder na repozytorium SQL (np. `projekt.sql`).
@@ -90,7 +91,7 @@ project-root/
 1. **Klonowanie repozytorium** (lub pobranie paczki ZIP z plikami):
 
 ```bash
-git clone https://your-repo-url.git
+git clone https://github.com/LeoTheOriginal/Hotel-Reservation-Database.git
 ```
 
 2. **Utworzenie bazy danych** w PostgreSQL (np. `hotel_db`).
@@ -104,21 +105,53 @@ psql -U postgres -d hotel_db -f projekt.sql
 
 ```php
 <?php
-$dsn = "pgsql:host=HOST;port=PORT;dbname=hotel_db;";
-$db_user = "postgres";
-$db_password = "haslo";
-$base_url = "http://localhost/hotel";
-// ...
+// /config.php
+
+$host = "host_adres_bazy"; 
+$dbname = "nazwa_bazy"; 
+$user = "nazwa_uzytkownika"; 
+$password = "haslo"; 
+$base_url = '/~2piotrowski/hotel'; 
+$schema = "rezerwacje_hotelowe"; 
+
+// Definicje stałych dla ról
+define('ROLE_ADMINISTRATOR', 'Administrator');
+define('ROLE_MANAGER', 'Manager');
+define('ROLE_RECEPCJONISTA', 'Recepcjonista');
+
+// Ustawienia połączenia
+$dsn = "pgsql:host=$host;port=5432;dbname=$dbname;user=$user;password=$password";
+
+try {
+    // Utworzenie nowego połączenia PDO
+    $pdo = new PDO($dsn);
+    $pdo->exec("SET NAMES 'UTF8'");
+    // $pdo->exec("SET search_path TO $schema"); // ewentualnie
+
+    // Włączenie obsługi błędów
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    // Obsługa błędów połączenia
+    echo "Błąd połączenia z bazą danych: " . $e->getMessage();
+    exit;
+}
+
+$test = $pdo->query("SELECT 1");
+if (!$test) {
+    echo json_encode(['success' => false, 'error' => 'Brak połączenia z bazą danych.']);
+    exit;
+}
 ?>
 ```
+
+> **Uwaga**: Upewnij się, że nie umieszczasz w repozytorium prawdziwych haseł i kluczy!
 
 ---
 ## Konfiguracja
 1. W pliku `config.php` ustaw:
-   - **$dsn**: ścieżka do bazy danych Postgres
-   - **$db_user**: nazwa użytkownika bazy
-   - **$db_password**: hasło użytkownika
-   - **$base_url**: URL projektu (np. http://localhost/hotel)
+   - **$host**, **$dbname**, **$user**, **$password** – adekwatnie do Twojej bazy PostgreSQL.
+   - **$base_url** – URL projektu (np. http://localhost/hotel lub /~2piotrowski/hotel).
+   - **$schema** – Nazwa schematu w bazie (domyślnie `rezerwacje_hotelowe`).
 2. Sprawdź, czy folder `assets/images/uploads` ma odpowiednie uprawnienia (zapisywalny dla PHP) – jeśli korzystasz z uploadu zdjęć.
 3. Upewnij się, że `php.ini` ma włączone rozszerzenie pdo_pgsql.
 4. Po wypełnieniu tych informacji możesz uruchomić projekt.
