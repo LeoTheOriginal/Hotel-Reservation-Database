@@ -144,8 +144,6 @@ if (!$test) {
 ?>
 ```
 
-> **Uwaga**: Upewnij się, że nie umieszczasz w repozytorium prawdziwych haseł i kluczy!
-
 ---
 ## Konfiguracja
 1. W pliku `config.php` ustaw:
