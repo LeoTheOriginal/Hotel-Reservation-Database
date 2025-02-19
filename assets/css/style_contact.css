@@ -1,0 +1,73 @@
+/* ======== Reset & Global Styles ======== */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f7fc;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ffcc00;
+}
+
+/* ======== Sections Container ======== */
+.sections-container {
+    display: flex;                                  /* Ustawia elementy obok siebie */
+    gap: 20px;                                      /* Odstęp między sekcjami */
+    justify-content: center;                        /* Wyśrodkowanie w poziomie */
+    align-items: flex-start;                        /* Wyrównanie do góry */
+    flex-wrap: wrap;                                /* Pozwala elementom przenosić się do nowego wiersza na mniejszych ekranach */
+}
+
+/* ======== Contact Section ======== */
+.contact-section, .map-section {
+    background-color: #fff;
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    flex: 1;                                        /* Ustawia równą szerokość dla obu sekcji */
+    max-width: 50%;                                 /* Maksymalnie połowa szerokości kontenera */
+    box-sizing: border-box;                         /* Uwzględnia padding w szerokości */
+}
+
+/* ======== Map Section ======== */
+.map-section iframe {
+    width: 100%;
+    height: 450px;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ======== Header Styling ======== */
+.with-background {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: #333;                         /* Kolor czarnego tła */
+    color: #fff;                                    /* Kolor tekstu */
+    padding: 10px 20px;
+    border-radius: 5px;                               /* Opcjonalnie: zaokrąglone rogi */
+    width: fit-content;
+    margin: 0 auto;                                   /* Wyśrodkowanie elementu w kontenerze */
+}
+
+/* tak opcjonalnie dodalem z ciekawosci - do spradzenia */
+/* ======== Responsive Styles ======== */
+@media (max-width: 768px) {
+    .contact-section, .map-section {
+        max-width: 100%;                                /* Pełna szerokość na małych ekranach */
+    }
+
+    .map-section iframe {
+        height: 300px;                                  /* Zmniejszona wysokość mapy */
+    }
+}

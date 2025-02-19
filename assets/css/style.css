@@ -1,0 +1,306 @@
+/* ======== Reset & Global Styles ======== */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #ffcc00;
+}
+
+/* ======== Główne Menu ======== */
+.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    background-color: #2c2f33;
+}
+
+.menu > li {
+    position: relative;
+}
+
+.menu > li > a {
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 20px;
+    display: block;
+    transition: background 0.3s ease;
+}
+
+.menu > li > a:hover {
+    background-color: #4a4e52;
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #333; /* Czarne tło */
+    list-style: none;
+    padding: 10px 0;
+    border-radius: 5px;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown-menu li {
+    padding: 0;
+}
+
+.dropdown-menu li a {
+    color: #fff; /* Ustaw biały kolor tekstu */
+    font-size: 14px;
+    padding: 10px 20px;
+    display: block;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #444; /* Ciemniejsze tło na hover */
+    color: #ffcc00; /* Zmiana koloru tekstu na hover */
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* ======== Hero Section ======== */
+.hero-section {
+    text-align: center;
+    color: #fff;
+    padding: 100px 20px;
+}
+
+.hero-content h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.hero-content p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.btn-primary {
+    background-color: #ffcc00;
+    color: #000;
+    padding: 15px 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e6b800;
+}
+
+/* ======== Features Section ======== */
+.features-section {
+    background: #f8f8f8;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.features-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.features {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.feature {
+    flex: 1;
+    min-width: 250px;
+    text-align: center;
+    padding: 20px;
+}
+
+.feature img {
+    width: 150px;
+    height: auto;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.feature p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* ======== Gallery Section ======== */
+.gallery-section {
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.gallery {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.gallery img {
+    width: 300px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ======== CTA Section ======== */
+.cta-section {
+    background: #2c2f33;
+    color: #fff;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.cta-section h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.btn-secondary {
+    background-color: #fff;
+    color: #000;
+    padding: 15px 30px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: #ffcc00;
+    color: #000;
+}
+
+/* ======== Footer Section ======== */
+.stardust-footer {
+    background: #2c2f33;
+    color: #fff;
+    padding: 40px 20px;
+}
+
+.stardust-footer .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stardust-footer .footer-about,
+.stardust-footer .footer-links,
+.stardust-footer .footer-contact,
+.stardust-footer .footer-social {
+    flex: 1;
+    min-width: 200px;
+}
+
+.stardust-footer h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #ffcc00;
+}
+
+.stardust-footer p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.stardust-footer a {
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.stardust-footer a:hover {
+    color: #ffcc00;
+}
+
+/* Footer Links */
+.stardust-footer .footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.stardust-footer .footer-links ul li {
+    margin-bottom: 10px;
+}
+
+.stardust-footer .footer-links ul li a {
+    font-size: 14px;
+}
+
+/* Social Media */
+.footer-social ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-social ul li {
+    margin-bottom: 10px;
+}
+
+.footer-social ul li a {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 14px;
+}
+
+.footer-social ul li img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    border-top: 1px solid #444;
+    padding-top: 10px;
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* Background for text sections */
+.with-background {
+    background-color: #2c2f33; 
+    color: #fff; 
+    padding: 10px 20px;
+    border-radius: 5px; 
+    display: inline-block; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); 
+}
+
+.with-background h2 {
+    margin: 0;
+    font-size: 24px;
+}
