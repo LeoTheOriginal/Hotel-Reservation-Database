@@ -1,12 +1,12 @@
 <?php
 // /config.php
 
-$host = "inscrutably-entrancing-vulture.data-1.euc1.tembo.io"; // tutaj nalezy podac adres bazy danych
-$dbname = "postgres"; // nazwa bazy danych
-$user = "postgres"; // nazwa użytkownika
-$password = "CJgm14hS8oMuraUe"; // hasło użytkownika
-$base_url = '/~2piotrowski/hotel'; // ścieżka do katalogu głównego aplikacji
-$schema = "rezerwacje_hotelowe"; // schemat bazy danych
+$host = ""; // tutaj nalezy podac adres bazy danych
+$dbname = ""; // nazwa bazy danych
+$user = ""; // nazwa użytkownika
+$password = ""; // hasło użytkownika
+$base_url = ''; // ścieżka do katalogu głównego aplikacji
+$schema = ""; // schemat bazy danych
 
 // Definicje stałych dla ról
 define('ROLE_ADMINISTRATOR', 'Administrator');

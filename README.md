@@ -314,10 +314,6 @@ Aby lepiej zobrazować poszczególne widoki i funkcjonalności systemu, poniżej
 *Rys. 12. Szczegóły operacji w formacie JSONB, możliwość wglądu i czyszczenia logów.*
 
 ---
-
-\*Uwaga: Nazwy i ścieżki plików graficznych (np. `assets/images/screenshots/...`) należy dostosować do rzeczywistej lokalizacji screenshotów w Twoim projekcie.
-
----
 ## Architektura bazodanowa i logika
 1. **Baza danych**: PostgreSQL z rozbudowanymi funkcjami, triggerami i widokami.
 2. **Warstwa logiki**: 
