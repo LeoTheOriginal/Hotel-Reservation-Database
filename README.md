@@ -1,6 +1,4 @@
-# README – System Rezerwacji Hotelowych
-
-Poniższy plik README opisuje projekt systemu rezerwacji hotelowych, który umożliwia zarządzanie gośćmi, rezerwacjami, pokojami, dodatkami, pracownikami i wieloma innymi elementami. Zawiera też wskazówki dotyczące uruchomienia aplikacji, konfiguracji, wdrożenia oraz propozycję miejsc, w których można dodać screenshoty ukazujące działanie systemu.
+System Rezerwacji Hotelowych
 
 ---
 ## Spis treści
