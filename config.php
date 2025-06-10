@@ -1,6 +1,9 @@
 <?php
 // /config.php
 
+// Dołączenie pliku z funkcjami bezpieczeństwa i walidacji
+require_once __DIR__ . '/includes/security.php';
+
 $host = ""; // tutaj nalezy podac adres bazy danych
 $dbname = ""; // nazwa bazy danych
 $user = ""; // nazwa użytkownika
