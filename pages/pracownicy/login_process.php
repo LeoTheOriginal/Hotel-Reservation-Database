@@ -34,8 +34,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $pracownik = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($pracownik){
-            // Sprawdzenie hasła
-            if(md5($password) === $pracownik['hasło']){
+            // Sprawdzenie hasła - obsługa zarówno starego formatu MD5 jak i nowego bezpiecznego haszowania
+            if(password_verify($password, $pracownik['hasło']) || (md5($password) === $pracownik['hasło'])){
+                // Jeśli użytkownik zalogował się używając starego formatu MD5, przeprowadź migrację hasła
+                if(md5($password) === $pracownik['hasło']) {
+                    include_once 'migrate_passwords.php';
+                    migratePasswordIfNeeded($pracownik['id'], $password, $pracownik['hasło']);
+                }
                 // Ustawienie zmiennych sesyjnych
                 $_SESSION['logged_in'] = true;
                 $_SESSION['pracownik_id'] = $pracownik['id'];

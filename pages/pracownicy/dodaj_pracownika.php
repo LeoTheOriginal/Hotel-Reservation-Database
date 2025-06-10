@@ -29,8 +29,8 @@ try {
         exit;
     }
 
-    // Hashowanie hasła
-    $hashedPassword = md5($haslo);
+    // Hashowanie hasła używając bezpiecznego haszowania
+    $hashedPassword = password_hash($haslo, PASSWORD_DEFAULT, ['cost' => 12]);
 
     // Dodawanie pracownika do bazy
     $query = "INSERT INTO rezerwacje_hotelowe.pracownik (imię, nazwisko, login, hasło, rola_id)

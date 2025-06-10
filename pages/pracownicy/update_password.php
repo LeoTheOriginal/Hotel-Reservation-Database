@@ -51,15 +51,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             exit;
         }
 
-        // Weryfikacja aktualnego hasła
-        if(md5($current_password) !== $pracownik['hasło']){
+        // Weryfikacja aktualnego hasła - obsługa zarówno starego formatu MD5 jak i nowego bezpiecznego haszowania
+        if(!(password_verify($current_password, $pracownik['hasło']) || md5($current_password) === $pracownik['hasło'])){
             $_SESSION['error'] = "Nieprawidłowe aktualne hasło.";
             header("Location: dashboard.php");
             exit;
         }
 
-        // Aktualizacja hasła
-        $hashed_new_password = md5($new_password);
+        // Aktualizacja hasła używając bezpiecznego haszowania
+        $hashed_new_password = password_hash($new_password, PASSWORD_DEFAULT, ['cost' => 12]);
 
         $stmt = $pdo->prepare("UPDATE rezerwacje_hotelowe.pracownik SET hasło = :new_password WHERE id = :id");
         $stmt->bindParam(':new_password', $hashed_new_password, PDO::PARAM_STR);

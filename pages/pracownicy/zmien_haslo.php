@@ -26,13 +26,14 @@ try {
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if (!$result || md5($currentPassword) !== $result['hasło']) {
+    // Sprawdzenie aktualnego hasła - obsługa zarówno starego formatu MD5 jak i nowego bezpiecznego haszowania
+    if (!$result || !(password_verify($currentPassword, $result['hasło']) || md5($currentPassword) === $result['hasło'])) {
         echo json_encode(['error' => 'Nieprawidłowe aktualne hasło.']);
         exit;
     }
 
-    // Zaktualizuj hasło
-    $newPasswordHashed = md5($newPassword);
+    // Zaktualizuj hasło używając bezpiecznego haszowania
+    $newPasswordHashed = password_hash($newPassword, PASSWORD_DEFAULT, ['cost' => 12]);
     $updateQuery = "UPDATE rezerwacje_hotelowe.pracownik SET hasło = :new_password WHERE id = :id";
     $updateStmt = $pdo->prepare($updateQuery);
     $updateStmt->bindParam(':new_password', $newPasswordHashed, PDO::PARAM_STR);
